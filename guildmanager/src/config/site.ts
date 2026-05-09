@@ -10,10 +10,6 @@ export type NavItem = {
       "A Star Citizen organization website for recruitment, operations, member identity, and command workflows.",
     mainNav: [
       {
-        title: "Home",
-        href: "/",
-      },
-      {
         title: "About",
         href: "/about",
       },
@@ -34,10 +30,7 @@ export type NavItem = {
         title: "Dispatches",
         href: "/dispatches",
       },
-      {
-        title: "Rules",
-        href: "/rules",
-      },
+      
     ] satisfies NavItem[],
     utilityNav: [
       {
@@ -47,6 +40,10 @@ export type NavItem = {
       {
         title: "Admin",
         href: "/admin",
+      },
+      {
+        title: "Rules",
+        href: "/rules",
       },
     ] satisfies NavItem[],
   }

@@ -1,8 +1,9 @@
+"use client"
+
 import Link from "next/link"
 import { Menu, Shield } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
   Sheet,
@@ -11,6 +12,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+
+const linkButtonBase =
+  "inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 disabled:pointer-events-none disabled:opacity-50"
+
+const ghostButton = "text-slate-300 hover:bg-slate-900 hover:text-white"
+
+const primaryButton = "bg-amber-400 text-slate-950 hover:bg-amber-300"
+
+const iconButton =
+  "inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-300 transition-colors hover:bg-slate-900 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300"
 
 export function SiteHeader() {
   return (
@@ -25,7 +36,7 @@ export function SiteHeader() {
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-slate-100">
               Asgard
             </p>
-            <p className="text-xs text-slate-400">Star Citizen Command</p>
+            <p className="text-xs text-slate-400">Star Citizen Organisation</p>
           </div>
         </Link>
 
@@ -38,6 +49,7 @@ export function SiteHeader() {
             >
               <span className="inline-flex items-center gap-2">
                 {item.title}
+
                 {item.label ? (
                   <Badge className="border-emerald-400/30 bg-emerald-400/10 text-emerald-300 hover:bg-emerald-400/10">
                     {item.label}
@@ -49,24 +61,34 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <Button asChild variant="ghost">
-            <Link href="/login">Login</Link>
-          </Button>
+          <Link href="/login" className={`${linkButtonBase} ${ghostButton}`}>
+            Login
+          </Link>
 
-          <Button asChild className="bg-amber-400 text-slate-950 hover:bg-amber-300">
-            <Link href="/recruitment">Apply</Link>
-          </Button>
+          <Link
+            href="/recruitment"
+            className={`${linkButtonBase} ${primaryButton}`}
+          >
+            Apply
+          </Link>
         </div>
 
         <div className="lg:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Open navigation">
+              <button
+                type="button"
+                aria-label="Open navigation"
+                className={iconButton}
+              >
                 <Menu className="h-5 w-5" />
-              </Button>
+              </button>
             </SheetTrigger>
 
-            <SheetContent side="right" className="border-slate-800 bg-slate-950 text-slate-100">
+            <SheetContent
+              side="right"
+              className="border-slate-800 bg-slate-950 text-slate-100"
+            >
               <SheetHeader>
                 <SheetTitle className="text-left text-slate-100">
                   Asgard Command
@@ -74,19 +96,24 @@ export function SiteHeader() {
               </SheetHeader>
 
               <div className="mt-8 grid gap-2">
-                {[...siteConfig.mainNav, ...siteConfig.utilityNav].map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="rounded-md px-3 py-2 text-sm font-medium text-slate-300 hover:bg-slate-900 hover:text-white"
-                  >
-                    {item.title}
-                  </Link>
-                ))}
+                {[...siteConfig.mainNav, ...siteConfig.utilityNav].map(
+                  (item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="rounded-md px-3 py-2 text-sm font-medium text-slate-300 hover:bg-slate-900 hover:text-white"
+                    >
+                      {item.title}
+                    </Link>
+                  )
+                )}
 
-                <Button asChild className="mt-4 bg-amber-400 text-slate-950 hover:bg-amber-300">
-                  <Link href="/recruitment">Apply to Asgard</Link>
-                </Button>
+                <Link
+                  href="/recruitment"
+                  className={`${linkButtonBase} ${primaryButton} mt-4`}
+                >
+                  Apply to Asgard
+                </Link>
               </div>
             </SheetContent>
           </Sheet>
