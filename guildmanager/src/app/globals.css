@@ -128,3 +128,11 @@
     @apply font-mono;
   }
 }
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.22), transparent 34rem),
+    radial-gradient(circle at top right, rgba(245, 158, 11, 0.12), transparent 28rem),
+    #020617;
+  color: #e2e8f0;
+} 
