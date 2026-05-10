@@ -50,3 +50,62 @@ Routes scaffolded:
 - /login
 - /dashboard
 - /admin
+
+
+## Milestone — Phase 1 Started
+
+Date: 2026-05-10
+
+Status:
+Asgard Community Website has officially moved from Phase 0 into Phase 1.
+
+Phase 0 completed:
+- Next.js App Router project foundation
+- TypeScript and Tailwind setup
+- Initial shadcn/ui design direction
+- Base layout shell
+- Main navigation
+- Footer
+- Homepage command-center placeholder
+- Placeholder routes for public, member, and admin areas
+- Initial tactical Asgard visual identity
+
+Phase 1 goal:
+Build the public-facing Asgard website so visitors can understand the organization, explore its identity, view recruitment information, and take clear next steps toward applying or joining Discord.
+
+Phase 1 focus areas:
+- Homepage
+- About page
+- Recruitment page
+- Fleet page
+- Rules page
+- Public operations preview
+- Dispatches/news page
+- Discord and Apply calls-to-action
+- Header/navigation polish
+- Stronger Asgard tactical visual identity
+
+Current first design task:
+Experiment with a centered SVG/logo header, with navigation split to the left and right of the logo.
+
+
+## Implementation Note — Header Polish Complete
+
+Date: 2026-05-10
+
+Implemented:
+- Floating island-style public header
+- Centered Asgard SVG logo
+- Reduced primary navigation
+- Swedish color tokens:
+  - sweyellow: #fecb00
+  - sweblue: #005293
+- Scroll-collapse behavior
+- Logo scroll-to-top behavior
+- Mobile hamburger menu and dropdown
+
+Reasoning:
+The header now supports the Phase 1 public-site identity by acting as a compact branded navigation element rather than a generic full-width navbar.
+
+Next focus:
+Begin Homepage v1, starting with the hero section and public calls-to-action.

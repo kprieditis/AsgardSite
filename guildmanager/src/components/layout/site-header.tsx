@@ -10,7 +10,7 @@ const leftNav = [
   { label: "Nyheter", href: "/dispatches" },
 ];
 
-const rightNav = [{ label: "Flåtta", href: "/fleet" }];
+const rightNav = [{ label: "Flotta", href: "/fleet" }];
 
 const mobileNav = [
   ...leftNav,
@@ -37,7 +37,7 @@ function DesktopNavLink({
       href={href}
       aria-current={isActive ? "page" : undefined}
       className={cn(
-        "relative rounded-full border px-1 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] transition",
+        "relative rounded-full border px-1 py-1 text-[15px] font-semibold uppercase tracking-[0.16em] transition",
         "active:border-sweyellow focus-visible:border-sweyellow focus-visible:outline-none",
         isActive
           ? "border-sweyellow bg-sweblue/50 text-sweyellow"
@@ -81,8 +81,8 @@ function SiteLogo() {
       <Image
         src="/brand/asglogowhite.svg"
         alt="Asgard logo"
-        width={56}
-        height={56}
+        width={64}
+        height={64}
         priority
         className="h-12 w-12 object-contain transition duration-300 hover:scale-105"
       />
@@ -170,7 +170,7 @@ export function SiteHeader() {
               href="/login"
               aria-current={pathname === "/login" ? "page" : undefined}
               className={cn(
-                "rounded-full border border-sweyellow px-2 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-sweyellow transition",
+                "rounded-full border border-sweyellow px-2 py-1 text-[15px] font-bold uppercase tracking-[0.16em] text-sweyellow transition",
                 "active:border-sweyellow focus-visible:border-sweyellow focus-visible:outline-none",
                 pathname === "/login"
                   ? "bg-sweblue/50"
@@ -192,7 +192,7 @@ export function SiteHeader() {
             aria-expanded={mobileOpen}
             aria-label="Toggle navigation menu"
             className={cn(
-              "absolute left-[calc(50%+1.45rem)] top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-sweyellow/70 text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sweyellow lg:hidden",
+              "absolute left-[calc(50%+1.45rem)] top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-sweyellow text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sweyellow  backdrop-blur-md lg:hidden",
               mobileOpen && "border-sweyellow bg-sweblue/35",
               scrolled && "pointer-events-none opacity-0"
             )}
@@ -219,7 +219,13 @@ export function SiteHeader() {
 
         {/* Mobile dropdown */}
         {mobileOpen && !scrolled && (
-          <nav className="absolute left-1/2 top-full mt-2 grid w-[min(18rem,calc(100vw-2rem))] -translate-x-1/2 gap-1.5 rounded-3xl border border-sweyellow bg-sweblue/20 p-3 shadow-[0_0_32px_rgba(0,82,147,0.65)] backdrop-blur-md lg:hidden">
+          <nav
+            className="absolute left-1/2 top-full mt-2 grid w-[min(18rem,calc(100vw-2rem))] -translate-x-1/2 gap-1.5 rounded-3xl border border-sweyellow bg-slate-950/95   p-3 shadow-[0_0_32px_rgba(0,82,147,0.65)] lg:hidden"
+            style={{
+              backdropFilter: "blur(36px) saturate(160%) brightness(70%)",
+              WebkitBackdropFilter: "blur(36px) saturate(160%) brightness(70%)",
+            }}
+          >
             {mobileNav.map((item) => {
               const isActive = pathname === item.href;
               const isLogin = item.href === "/login";
@@ -236,8 +242,8 @@ export function SiteHeader() {
                     isActive
                       ? "border-sweyellow bg-sweblue/60 text-sweyellow"
                       : isLogin
-                        ? "border-sweyellow text-sweyellow hover:bg-sweblue/45"
-                        : "border-transparent text-slate-300 hover:bg-sweblue/45 hover:text-sweyellow"
+                        ? "border-sweyellow text-sweyellow hover:bg-sweblue/35"
+                        : "border-transparent text-slate-300 hover:bg-sweblue/35 hover:text-sweyellow"
                   )}
                 >
                   {item.label}

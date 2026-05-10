@@ -14,7 +14,7 @@ export type NavItem = {
         href: "/about",
       },
       {
-        title: "Flåtta",
+        title: "Flotta",
         href: "/fleet",
       },
 
