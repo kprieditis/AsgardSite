@@ -10,24 +10,16 @@ export type NavItem = {
       "A Star Citizen organization website for recruitment, operations, member identity, and command workflows.",
     mainNav: [
       {
-        title: "About",
+        title: "Om oss",
         href: "/about",
       },
       {
-        title: "Recruitment",
-        href: "/recruitment",
-        label: "Open",
-      },
-      {
-        title: "Fleet",
+        title: "Flåtta",
         href: "/fleet",
       },
+
       {
-        title: "Operations",
-        href: "/operations",
-      },
-      {
-        title: "Dispatches",
+        title: "Nyheter",
         href: "/dispatches",
       },
       
@@ -42,8 +34,17 @@ export type NavItem = {
         href: "/admin",
       },
       {
-        title: "Rules",
+        title: "Regler",
         href: "/rules",
+      },
+            {
+        title: "Operationer",
+        href: "/operations",
+      },
+            {
+        title: "Rekrytering",
+        href: "/recruitment",
+        label: "Open",
       },
     ] satisfies NavItem[],
   }
