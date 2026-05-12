@@ -190,7 +190,6 @@ Changes included:
 
 ### Current Flow
 
-```txt
 Visitor
 → Login
 → Discord OAuth
@@ -201,16 +200,21 @@ Visitor
 → User can edit profile
 
 
+
+## 2026-05-13 — Login page design, dashboard layout work
+
+- Started working and finished a login page component page, started working on the dashboard but having some issues with the layout.
+
+
 ### Left TODO
 - Improve CSS for all newly edited pages/components:
-- Login page
 - Dashboard page
 - Profile editor page
 - Sign-out button
-- Footer
 - Auth/member navigation states
 - Make the dashboard feel more like an Asgard site.
 - Improve mobile responsiveness.
 - Add better spacing, card layouts, helper text, and visual hierarchy.
 - Add saved/loading/empty states where useful.
 - Start working on signed-in navigation and role-aware route protection.
+
