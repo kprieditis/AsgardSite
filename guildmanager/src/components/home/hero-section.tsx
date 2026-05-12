@@ -6,7 +6,9 @@ import {
     Newspaper,
     Ship,
     ChartBar,
+    ArrowRight,
   } from "lucide-react";
+import { siteConfig } from "@/config/site"
 
 const hubItems = [
     {
@@ -165,12 +167,13 @@ export function HeroSection() {
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <a
-                href="https://discord.gg/H2Tj7C9CP2"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-2xl border border-sweyellow bg-sweblue/20 px-7 py-4 text-base font-semibold text-slate-100 shadow-[0_0_24px_rgba(0,82,147,0.35)] backdrop-blur-md transition hover:bg-sweblue/40 hover:text-sweyellow"
-                >
-                Gå med på Discord
+              href={siteConfig.links.discord}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-2xl border border-sweyellow bg-sweblue/25 px-7 py-4 text-base font-semibold text-slate-100 transition hover:bg-sweblue/45 hover:text-sweyellow"
+            >
+              Gå med på Discord
+              <ArrowRight className="ml-3 h-5 w-5 transition group-hover:translate-x-1" />
             </a>
 
             {/* <Link

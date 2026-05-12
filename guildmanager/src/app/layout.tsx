@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   },
   description:
     "Asgard is a tactical Star Citizen organization website for recruitment, operations, fleet identity, dispatches, and member command workflows.",
+    icons: {
+      icon: "/brand/asglogowhite.svg"
+    }
 }
 
 export default function RootLayout({

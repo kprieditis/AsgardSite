@@ -109,3 +109,108 @@ The header now supports the Phase 1 public-site identity by acting as a compact 
 
 Next focus:
 Begin Homepage v1, starting with the hero section and public calls-to-action.
+
+
+## 2026-05-12 — Discord Authentication, Database Accounts, and Member Profile Foundation
+
+### Summary
+
+We completed the first major authentication and member identity setup for the Asgard website.
+
+The site now has a working Discord login flow, persistent database-backed user accounts, and an initial Asgard-specific profile system. This establishes the foundation for future features such as applications, ranks, divisions, roster pages, operations RSVP, dashboards, moderation tools, and admin permissions.
+
+---
+
+## Implementation Note
+Date: 2026-05-12
+
+#### Footer improvements
+
+Updated the site footer to better support the Asgard identity and legal/community context.
+
+Changes included:
+
+- Added support for a small Asgard logo near the `ASGARD` footer brand text.
+- Added text explaining that Asgard is a Swedish organization and that website content is in Swedish.
+- Added a Discord link for English-speaking visitors who want to ask questions.
+- Replaced the short disclaimer with a fuller Star Citizen / Cloud Imperium / Roberts Space Industries trademark and affiliation disclaimer.
+
+---
+
+## 2026-05-12 — Auth, Database, and Profile Foundation
+
+### Completed
+
+- Improved footer with Asgard logo support, Swedish/English visitor notice, Discord link, and fuller Star Citizen legal disclaimer.
+- Added Discord login using Auth.js / NextAuth.
+- Created protected login flow with:
+  - `/login`
+  - `/dashboard`
+  - `/api/auth/[...nextauth]/route.ts`
+  - `src/auth.ts`
+- Added required environment variables:
+  - `AUTH_SECRET`
+  - `AUTH_DISCORD_ID`
+  - `AUTH_DISCORD_SECRET`
+  - `AUTH_URL`
+  - `DATABASE_URL`
+- Fixed Discord callback routing issue.
+- Fixed Discord avatar loading by allowing `cdn.discordapp.com` in Next image config.
+- Set up local PostgreSQL database using Docker.
+- Added Prisma and connected it to Auth.js with the Prisma adapter.
+- Added database models for:
+  - `User`
+  - `Account`
+  - `Session`
+  - `VerificationToken`
+  - `Profile`
+- Added Asgard profile fields:
+  - Display name
+  - RSI handle
+  - Timezone
+  - Primary activity
+  - Primary role
+  - Bio
+  - Visibility
+  - Community rank
+  - Site role
+  - Division
+- Created reusable Prisma client in `src/lib/prisma.ts`.
+- Protected the dashboard behind Discord login.
+- Dashboard now creates/fetches the user’s Asgard profile.
+- Created initial profile editor at `/account/profile`.
+
+### Decisions
+
+- Discord is used for authentication.
+- Asgard-specific member data is stored separately in the `Profile` table.
+- Local development database uses Docker PostgreSQL instead of Prisma’s generated local `prisma+postgres` URL.
+- Dashboard initializes a profile automatically after first login.
+- Profile editor starts simple and server-rendered for MVP speed.
+
+### Current Flow
+
+```txt
+Visitor
+→ Login
+→ Discord OAuth
+→ Auth.js callback
+→ User/account/session saved in database
+→ Dashboard
+→ Asgard profile created
+→ User can edit profile
+
+
+### Left TODO
+- Improve CSS for all newly edited pages/components:
+- Login page
+- Dashboard page
+- Profile editor page
+- Sign-out button
+- Footer
+- Auth/member navigation states
+- Make the dashboard feel more like an Asgard site.
+- Improve mobile responsiveness.
+- Add better spacing, card layouts, helper text, and visual hierarchy.
+- Add saved/loading/empty states where useful.
+- Start working on signed-in navigation and role-aware route protection.

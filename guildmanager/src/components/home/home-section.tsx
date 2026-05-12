@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, MessageCircle, RadioTower, Shield, Users } from "lucide-react";
 import Image from "next/image";
+import { siteConfig } from "@/config/site"
+
 
 const focusAreas = [
   {
@@ -27,7 +29,8 @@ export function HomeSections() {
   return (
     <>
  {/* Section 1: About Asgard */}
-<section className="relative overflow-hidden border-t border-sweyellow/25 bg-slate-950 px-4 py-24 sm:px-6 lg:px-8">
+<section className="relative overflow-hidden bg-slate-950 px-4 py-24 sm:px-6 lg:px-8">
+  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sweyellow to-transparent" />
   {/* <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-sweblue/20 blur-3xl" />
   <div className="pointer-events-none absolute left-0 bottom-0 h-96 w-96 rounded-full bg-sweyellow/5 blur-3xl" /> */}
 
@@ -79,11 +82,11 @@ export function HomeSections() {
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
             <p className="text-sm font-bold uppercase tracking-[0.35em] text-sweyellow">
-              Vårt fokus
+              Vår organisation
             </p>
 
             <h2 className="mt-5 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-              Det vi bygger tillsammans.
+              Detta är Asgard.
             </h2>
           </div>
 
@@ -116,7 +119,7 @@ export function HomeSections() {
 
       {/* Section 3: Discord CTA */}
       <section className="relative overflow-hidden bg-slate-950 px-4 py-24 sm:px-6 lg:px-8">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sweyellow/50 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sweyellow to-transparent" />
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sweblue/25 blur-3xl" />
 
         <div className="relative mx-auto max-w-5xl rounded-[2rem] border border-sweyellow bg-sweblue/20 p-8 text-center shadow-[0_0_48px_rgba(0,82,147,0.45)] backdrop-blur-xl sm:p-12">
@@ -139,10 +142,10 @@ export function HomeSections() {
 
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <a
-              href="https://discord.gg/YOUR_INVITE"
+              href={siteConfig.links.discord}
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex items-center justify-center rounded-2xl border border-sweyellow bg-sweblue/ px-7 py-4 text-base font-semibold text-slate-950 transition hover:bg-sweyellow/90"
+              className="inline-flex items-center justify-center rounded-2xl border border-sweyellow/40 bg-sweblue/25 px-7 py-4 text-base font-semibold text-slate-100 transition hover:bg-sweblue/45 hover:text-sweyellow"
             >
               Gå med på Discord
               <ArrowRight className="ml-3 h-5 w-5 transition group-hover:translate-x-1" />

@@ -47,4 +47,7 @@ export type NavItem = {
         label: "Open",
       },
     ] satisfies NavItem[],
+    links: {
+      discord: "https://discord.gg/H2Tj7C9CP2",
+    },
   }
