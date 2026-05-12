@@ -59,16 +59,10 @@ export function HeroSection() {
       <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-sweblue/25 blur-3xl" />
 
       <div className="mx-auto grid min-h-[calc(100vh-9rem)] max-w-7xl items-center gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr]">
+
+
         {/* Left content */}
         <div className="max-w-4xl">
-          {/* <div className="mb-8 inline-flex items-center rounded-full border border-sweyellow/60 bg-sweblue/20 px-4 py-2 text-sm font-medium text-slate-200 shadow-[0_0_24px_rgba(0,82,147,0.45)] backdrop-blur-md">
-            <span className="mr-2 h-2 w-2 rounded-full bg-sweyellow shadow-[0_0_14px_rgba(254,203,0,0.9)]" />
-            Rekrytering Status: Öppen
-          </div>
-
-          <p className="mb-5 text-sm font-bold uppercase tracking-[0.45em] text-sweyellow">
-            ASGARD
-          </p> */}
 
             <h1 className="max-w-5xl text-6xl font-bold tracking-tight text-white sm:text-7xl lg:text-8xl">
             Välkommen till <br />
@@ -92,14 +86,6 @@ export function HeroSection() {
             </p>
             </div>
           <div className="mt-12 flex flex-col gap-4 sm:flex-row">
-            {/* <Link
-              href="/recruitment"
-              className="group inline-flex items-center justify-center rounded-2xl border border-sweyellow bg-sweyellow px-7 py-4 text-base font-semibold text-slate-950 transition hover:bg-sweyellow/90"
-            >
-              Gå med i Asgard
-              <ArrowRight className="ml-3 h-5 w-5 transition group-hover:translate-x-1" />
-            </Link> */}
-
             <Link
               href="/about"
               className="inline-flex items-center justify-center rounded-2xl border border-sweyellow bg-sweblue/20 px-7 py-4 text-base font-semibold text-slate-100 shadow-[0_0_24px_rgba(0,82,147,0.35)] backdrop-blur-md transition hover:bg-sweblue/40 hover:text-sweyellow"
@@ -108,14 +94,13 @@ export function HeroSection() {
             </Link>
           </div>
         </div>
+
+
         {/* Right community hub panel */}
         <aside className="rounded-[2rem] border border-sweyellow bg-sweblue/20 p-5 shadow-[0_0_40px_rgba(0,82,147,0.5)] backdrop-blur-xl">
         <div className="rounded-[1.5rem] border border-sweblue bg-slate-950/35 p-6">
             <div className="mb-6 flex items-start justify-between gap-4">
             <div>
-                {/* <p className="text-xs font-bold uppercase tracking-[0.3em] text-sweyellow">
-                Community Hub
-                </p> */}
 
                 <h2 className="mt-2 text-2xl font-bold text-white">
                 Rekrytering sker på Discord
@@ -175,13 +160,7 @@ export function HeroSection() {
               Gå med på Discord
               <ArrowRight className="ml-3 h-5 w-5 transition group-hover:translate-x-1" />
             </a>
-
-            {/* <Link
-                href="/about"
-                className="inline-flex items-center justify-center rounded-2xl border border-sweyellow/40 bg-sweblue/25 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-sweblue/45 hover:text-sweyellow"
-            >
-                Läs mer först
-            </Link> */}
+            
             </div>
         </div>
         </aside>
