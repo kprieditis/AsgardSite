@@ -118,7 +118,9 @@ export function HomeSections() {
       </section>
 
       {/* Section 3: Discord CTA */}
-      <section className="relative overflow-hidden bg-slate-950 px-4 py-24 sm:px-6 lg:px-8">
+      <section   
+      id="join-asgard" 
+      className="relative overflow-hidden bg-slate-950 px-4 py-24 sm:px-6 lg:px-8">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sweyellow to-transparent" />
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sweblue/25 blur-3xl" />
 

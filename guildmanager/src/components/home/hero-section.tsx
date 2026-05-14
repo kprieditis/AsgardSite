@@ -1,41 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-    CalendarDays,
-    MessageCircle,
-    Newspaper,
-    Ship,
-    ChartBar,
-    ArrowRight,
-  } from "lucide-react";
-import { siteConfig } from "@/config/site"
+import { ArrowRight } from "lucide-react";
 
-const hubItems = [
-    {
-      label: "Nyheter",
-      description: "Följ uppdateringar och information.",
-      icon: Newspaper,
-    },
-    {
-      label: "Flotta",
-      description: "Lär känna Asgards struktur och fokus.",
-      icon: Ship,
-    },
-    {
-      label: "Operationer",
-      description: "Planering och samling av events.",
-      icon: CalendarDays,
-    },
-    {
-      label: "Statistik",
-      description: "Samling av statistik och utmärkelser",
-      icon: ChartBar,
-    },
-  ];
+import { LoginPanel } from "@/components/login/login-panel";
 
 export function HeroSection() {
   return (
-    <section className="relative isolate min-h-screen overflow-hidden px-4 pt-36 sm:px-6 lg:px-8">
+    <section className="relative isolate min-h-screen overflow-hidden bg-slate-950 px-4 pt-36 text-slate-100 sm:px-6 lg:px-8">
       {/* Background image */}
       <Image
         src="/hero/asgard-hero-01.png"
@@ -58,112 +29,55 @@ export function HeroSection() {
       {/* Background glow */}
       <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-sweblue/25 blur-3xl" />
 
-      <div className="mx-auto grid min-h-[calc(100vh-9rem)] max-w-7xl items-center gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr]">
-
-
+      <div className="mx-auto grid min-h-[calc(100vh-9rem)] max-w-7xl items-center gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
         {/* Left content */}
-        <div className="max-w-4xl">
+        <div className="max-w-3xl">
+          <p className="text-sm font-bold uppercase tracking-[0.45em] text-sweyellow">
+            Välkommen till
+          </p>
 
-            <h1 className="max-w-5xl text-6xl font-bold tracking-tight text-white sm:text-7xl lg:text-8xl">
-            Välkommen till <br />
-            <span className="text-sweyellow">Asgard</span>
-            </h1>
+          <h1 className="mt-4 text-5xl font-black uppercase tracking-tight text-white sm:text-6xl lg:text-7xl">
+            Asgard
+          </h1>
 
-            <div className="mt-8 max-w-3xl space-y-5 text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
+          <div className="mt-7 space-y-5 text-base leading-8 text-slate-300 sm:text-lg">
             <p>
-                Asgard är ett aktivt, svenskt Star Citizen gaming-community där gemenskap,
-                samarbete och långsiktig progression står i centrum.
+              Asgard är ett aktivt, svenskt Star Citizen gaming-community där
+              gemenskap, samarbete och långsiktig progression står i centrum.
             </p>
 
             <p>
-                Vi utforskar, erövrar och tar del av spelets alla möjligheter, samtidigt som
-                vi satsar stort på att utveckla en stark industriell och ekonomisk närvaro.
+              Vi utforskar, erövrar och tar del av spelets alla möjligheter,
+              samtidigt som vi satsar stort på att utveckla en stark industriell
+              och ekonomisk närvaro.
             </p>
 
             <p>
-                Vårt mål är att skapa en välkomnande miljö där varje medlem känner sig hemma
-                och kan bidra till ett dynamiskt, stödjande community.
+              Vårt mål är att skapa en välkomnande miljö där varje medlem känner
+              sig hemma och kan bidra till ett dynamiskt, stödjande community.
             </p>
-            </div>
-          <div className="mt-12 flex flex-col gap-4 sm:flex-row">
+          </div>
+
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/about"
-              className="inline-flex items-center justify-center rounded-2xl border border-sweyellow bg-sweblue/20 px-7 py-4 text-base font-semibold text-slate-100 shadow-[0_0_24px_rgba(0,82,147,0.35)] backdrop-blur-md transition hover:bg-sweblue/40 hover:text-sweyellow"
+              className="group inline-flex items-center justify-center rounded-2xl border border-sweyellow bg-sweblue/25 px-7 py-4 text-center text-base font-semibold text-slate-100 transition hover:bg-sweblue/45 hover:text-sweyellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sweyellow focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
               Mer om oss
+              <ArrowRight className="ml-3 h-5 w-5 transition group-hover:translate-x-1" />
+            </Link>
+
+            <Link
+              href="/fleet"
+              className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-slate-950/35 px-7 py-4 text-center text-base font-semibold text-slate-300 transition hover:border-sweyellow hover:bg-sweblue/35 hover:text-sweyellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sweyellow focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+            >
+              Se flottan
             </Link>
           </div>
         </div>
 
-
-        {/* Right community hub panel */}
-        <aside className="rounded-[2rem] border border-sweyellow bg-sweblue/20 p-5 shadow-[0_0_40px_rgba(0,82,147,0.5)] backdrop-blur-xl">
-        <div className="rounded-[1.5rem] border border-sweblue bg-slate-950/35 p-6">
-            <div className="mb-6 flex items-start justify-between gap-4">
-            <div>
-
-                <h2 className="mt-2 text-2xl font-bold text-white">
-                Rekrytering sker på Discord
-                </h2>
-
-                <p className="mt-3 text-md leading-6 text-slate-300">
-                Vill du gå med i Asgard? Hoppa in på vår Discord, presentera dig och
-                prata med communityt. Hemsidan hjälper dig att förstå vilka vi är,
-                medan Discord är platsen där rekryteringen börjar.
-                </p>
-            </div>
-
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-sweyellow bg-sweblue/30 text-sweyellow">
-                <MessageCircle className="h-6 w-6" />
-            </div>
-            </div>
-
-            <div className="rounded-2xl border border-sweyellow/85 bg-sweblue/20 p-4">
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-sweyellow">
-                På hemsidan
-            </p>
-
-            <div className="mt-4 grid gap-3">
-                {hubItems.map((item) => {
-                const Icon = item.icon;
-
-                return (
-                    <div
-                    key={item.label}
-                    className="flex items-start gap-3 rounded-2xl border border-white/10 bg-slate-950/35 p-3"
-                    >
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-sweyellow/40 bg-sweblue/30 text-sweyellow">
-                        <Icon className="h-4 w-4" />
-                    </div>
-
-                    <div>
-                        <p className="text-sm font-semibold text-slate-100">
-                        {item.label}
-                        </p>
-                        <p className="mt-1 text-xs leading-5 text-slate-400">
-                        {item.description}
-                        </p>
-                    </div>
-                    </div>
-                );
-                })}
-            </div>
-            </div>
-
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <a
-              href={siteConfig.links.discord}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-2xl border border-sweyellow bg-sweblue/25 px-7 py-4 text-base font-semibold text-slate-100 transition hover:bg-sweblue/45 hover:text-sweyellow"
-            >
-              Gå med på Discord
-              <ArrowRight className="ml-3 h-5 w-5 transition group-hover:translate-x-1" />
-            </a>
-            
-            </div>
-        </div>
-        </aside>
+        {/* Right member portal panel */}
+        <LoginPanel variant="hero" redirectWhenSignedIn={false} />
       </div>
     </section>
   );
