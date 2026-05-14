@@ -25,11 +25,8 @@ const authedMobileTopNav = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Operations", href: "/operations" },
 ];
-
-const dropdownSurfaceStyle = {
-  backdropFilter: "blur(36px) saturate(175%) brightness(95%)",
-  WebkitBackdropFilter: "blur(36px) saturate(175%) brightness(95%)",
-};
+const dropdownSurfaceClass =
+  "overflow-hidden rounded-3xl border border-sweyellow bg-swedarkblue p-3 ring-1 ring-white/10 backdrop-blur-md transition-all duration-300";
 
 function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -140,7 +137,7 @@ function MobileNavLink({
 }
 
 function MobileDivider() {
-  return <div aria-hidden="true" className="my-1 h-px bg-sweyellow/35" />;
+  return <div aria-hidden="true" className="my-1 h-px bg-gradient-to-r from-transparent via-sweyellow to-transparent" />;
 }
 
 function DropdownGloss() {
@@ -220,10 +217,11 @@ function AccountMenu({ user }: { user: NonNullable<HeaderUser> }) {
       {open && (
         <div
           role="menu"
-          className="absolute left-1/2 top-full z-50 mt-2 grid min-w-44 -translate-x-1/2 gap-1.5 overflow-hidden rounded-3xl border border-sweyellow bg-sweblue/20 p-3 shadow-[0_0_32px_rgba(0,82,147,0.65)] ring-1 ring-white/10"
-          style={dropdownSurfaceStyle}
+          className={cn(
+            "absolute left-1/2 top-full z-50 mt-2 grid min-w-44 -translate-x-1/2 gap-1.5",
+            dropdownSurfaceClass
+          )}
         >
-          <DropdownGloss />
 
           <DesktopDropdownLink
             href="/dashboard"
@@ -382,10 +380,11 @@ export function SiteHeaderClient({ user }: { user: HeaderUser }) {
         {/* Mobile dropdown */}
         {mobileOpen && !scrolled && (
           <nav
-            className="absolute left-1/2 top-full mt-2 grid w-[min(18rem,calc(100vw-2rem))] -translate-x-1/2 gap-1.5 overflow-hidden rounded-3xl border border-sweyellow bg-sweblue/20 p-3 shadow-[0_0_32px_rgba(0,82,147,0.65)] ring-1 ring-white/10 lg:hidden"
-            style={dropdownSurfaceStyle}
+          className={cn(
+            "absolute left-1/2 top-full mt-2 grid w-[min(18rem,calc(100vw-2rem))] -translate-x-1/2 gap-1.5 lg:hidden",
+            dropdownSurfaceClass
+          )}
           >
-            <DropdownGloss />
 
             {isLoggedIn ? (
               <>

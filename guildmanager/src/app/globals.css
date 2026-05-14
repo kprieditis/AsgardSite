@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-swedarkblue: #022443;
   --color-sweyellow: #fecb00;
   --color-sweblue: #005293;
   --color-background: var(--background);
