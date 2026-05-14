@@ -206,15 +206,43 @@ Visitor
 - Started working and finished a login page component page, started working on the dashboard but having some issues with the layout.
 
 
-### Left TODO
-- Improve CSS for all newly edited pages/components:
-- Dashboard page
-- Profile editor page
-- Sign-out button
-- Auth/member navigation states
-- Make the dashboard feel more like an Asgard site.
-- Improve mobile responsiveness.
-- Add better spacing, card layouts, helper text, and visual hierarchy.
-- Add saved/loading/empty states where useful.
-- Start working on signed-in navigation and role-aware route protection.
+## 2026-05-14 — Header auth menu and homepage login panel updates
 
+Today we updated the site navigation and member login flow.
+
+### Decisions made
+
+- The header now reads the current auth session server-side and passes the user state into a client header component.
+- When logged out, the header login button starts the Discord auth flow directly instead of navigating to `/login`.
+- When logged in, the header login button is replaced by an account dropdown with:
+  - Dashboard
+  - Operations
+  - Sign out
+- The mobile header menu was reorganized:
+  - Logged in: Dashboard, Operations, Sign out, divider, Om oss, Nyheter, Flotta
+  - Logged out: Logga in, divider, Om oss, Nyheter, Flotta
+- Header button/link text was centered consistently across desktop, mobile, and dropdown menus.
+- The logo behavior was clarified:
+  - If scrolled down on any page, clicking the logo scrolls to the top.
+  - If already at the top on any non-homepage route, clicking the logo navigates to `/`.
+  - If already at the top of `/`, clicking the logo does nothing.
+- The desktop and mobile dropdowns were styled to share the same glassy Asgard visual language as the main header, using a blue translucent background, stronger blur, glow, and active-route states.
+- The `/login` page is being preserved as a future auth/error/fallback page rather than being the primary login entry point.
+- The old full `LoginSection` was split into a reusable `LoginPanel`.
+- `LoginPanel` is now intended to be used inside the homepage hero, replacing the previous right-side community hub panel.
+- The homepage should no longer render a separate full login section below the hero once the hero panel is in place.
+- The logged-out hero panel keeps the login information and site feature blocks, but removes the separate “Inte medlem i Asgard än?” recruitment block.
+- The logged-out hero panel now has two main actions:
+  - Logga in / Logga in med Discord
+  - Inte medlem än?, which scrolls to the recruitment section near the bottom of the homepage.
+- The logged-in version of the panel became the preferred standard layout style: compact actions first, then informational blocks.
+
+### Reasoning
+
+These changes make authentication feel integrated into the site instead of sending users through a separate login page first. The header now adapts to user state, while the homepage hero doubles as a member portal entry point. Keeping `/login` available gives us a safe place later for auth errors, fallback messaging, or dedicated login states without making it the normal user path.
+
+### Tradeoffs
+
+- The header is now split into a server wrapper and a client component, which adds one extra file but keeps session reading and interactivity properly separated.
+- The dropdown glass styling may still need visual tuning against different backgrounds.
+- The hero login panel is more compact than the full `/login` page version, so the panel component needs variant-based styling.
