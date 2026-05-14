@@ -1,5 +1,6 @@
 import { HeroSection } from "@/components/home/hero-section";
 import { HomeSections } from "@/components/home/home-section";
+import LoginSection from "@/components/login/login-section";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export default function HomePage() {
     <main>
       <HeroSection />
       <HomeSections />
+      <LoginSection /> 
     </main>
   );
 }
