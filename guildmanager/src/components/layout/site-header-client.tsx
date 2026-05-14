@@ -26,8 +26,17 @@ const authedMobileTopNav = [
   { label: "Operations", href: "/operations" },
 ];
 
+const dropdownSurfaceStyle = {
+  backdropFilter: "blur(36px) saturate(175%) brightness(95%)",
+  WebkitBackdropFilter: "blur(36px) saturate(175%) brightness(95%)",
+};
+
 function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
+}
+
+function isActivePath(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 function handleSignIn() {
@@ -50,7 +59,7 @@ function DesktopNavLink({
   label: string;
 }) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = isActivePath(pathname, href);
 
   return (
     <Link
@@ -69,6 +78,37 @@ function DesktopNavLink({
   );
 }
 
+function DesktopDropdownLink({
+  href,
+  label,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  onClick: () => void;
+}) {
+  const pathname = usePathname();
+  const isActive = isActivePath(pathname, href);
+
+  return (
+    <Link
+      href={href}
+      role="menuitem"
+      onClick={onClick}
+      aria-current={isActive ? "page" : undefined}
+      className={cn(
+        "flex items-center justify-center rounded-2xl border px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.16em] transition",
+        "active:border-sweyellow focus-visible:border-sweyellow focus-visible:outline-none",
+        isActive
+          ? "border-sweyellow bg-sweblue/60 text-sweyellow"
+          : "border-transparent text-slate-300 hover:bg-sweblue/35 hover:text-sweyellow"
+      )}
+    >
+      {label}
+    </Link>
+  );
+}
+
 function MobileNavLink({
   href,
   label,
@@ -79,7 +119,7 @@ function MobileNavLink({
   onClick: () => void;
 }) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = isActivePath(pathname, href);
 
   return (
     <Link
@@ -103,6 +143,15 @@ function MobileDivider() {
   return <div aria-hidden="true" className="my-1 h-px bg-sweyellow/35" />;
 }
 
+function DropdownGloss() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-b from-white/10 via-sweblue/10 to-slate-950/25"
+    />
+  );
+}
+
 function SiteLogo() {
   const pathname = usePathname();
 
@@ -110,7 +159,6 @@ function SiteLogo() {
     const isAtTop = window.scrollY <= 32;
     const isHomePage = pathname === "/";
 
-    // If scrolled down on any page, scroll to top instead of navigating.
     if (!isAtTop) {
       event.preventDefault();
 
@@ -122,12 +170,9 @@ function SiteLogo() {
       return;
     }
 
-    // If already at top and currently on the homepage, do nothing.
     if (isHomePage) {
       event.preventDefault();
     }
-
-    // If already at top and not on homepage, allow the Link to navigate to "/".
   }
 
   return (
@@ -150,9 +195,12 @@ function SiteLogo() {
 }
 
 function AccountMenu({ user }: { user: NonNullable<HeaderUser> }) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   const accountLabel = user.name ?? user.email ?? "Account";
+  const accountRouteIsActive =
+    isActivePath(pathname, "/dashboard") || isActivePath(pathname, "/operations");
 
   return (
     <div className="relative">
@@ -161,7 +209,10 @@ function AccountMenu({ user }: { user: NonNullable<HeaderUser> }) {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-haspopup="menu"
-        className="inline-flex items-center justify-center rounded-full border border-sweyellow px-2 py-1 text-center text-[15px] font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:border-sweyellow focus-visible:outline-none"
+        className={cn(
+          "inline-flex items-center justify-center rounded-full border border-sweyellow px-2 py-1 text-center text-[15px] font-bold uppercase tracking-[0.16em] text-sweyellow transition focus-visible:border-sweyellow focus-visible:outline-none",
+          accountRouteIsActive ? "bg-sweblue/50" : "hover:bg-sweblue/35"
+        )}
       >
         <span className="max-w-36 truncate">{accountLabel}</span>
       </button>
@@ -169,35 +220,28 @@ function AccountMenu({ user }: { user: NonNullable<HeaderUser> }) {
       {open && (
         <div
           role="menu"
-          className="absolute left-1/2 top-full z-50 mt-2 grid min-w-44 -translate-x-1/2 gap-1.5 rounded-3xl border border-sweyellow bg-slate-950/95 p-3 shadow-[0_0_32px_rgba(0,82,147,0.65)]"
-          style={{
-            backdropFilter: "blur(36px) saturate(160%) brightness(70%)",
-            WebkitBackdropFilter: "blur(36px) saturate(160%) brightness(70%)",
-          }}
+          className="absolute left-1/2 top-full z-50 mt-2 grid min-w-44 -translate-x-1/2 gap-1.5 overflow-hidden rounded-3xl border border-sweyellow bg-sweblue/20 p-3 shadow-[0_0_32px_rgba(0,82,147,0.65)] ring-1 ring-white/10"
+          style={dropdownSurfaceStyle}
         >
-          <Link
-            href="/dashboard"
-            role="menuitem"
-            onClick={() => setOpen(false)}
-            className="flex items-center justify-center rounded-2xl border border-transparent px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.16em] text-slate-300 transition hover:bg-sweblue/35 hover:text-sweyellow focus-visible:border-sweyellow focus-visible:outline-none"
-          >
-            Dashboard
-          </Link>
+          <DropdownGloss />
 
-          <Link
-            href="/operations"
-            role="menuitem"
+          <DesktopDropdownLink
+            href="/dashboard"
+            label="Dashboard"
             onClick={() => setOpen(false)}
-            className="flex items-center justify-center rounded-2xl border border-transparent px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.16em] text-slate-300 transition hover:bg-sweblue/35 hover:text-sweyellow focus-visible:border-sweyellow focus-visible:outline-none"
-          >
-            Operations
-          </Link>
+          />
+
+          <DesktopDropdownLink
+            href="/operations"
+            label="Operations"
+            onClick={() => setOpen(false)}
+          />
 
           <button
             type="button"
             role="menuitem"
             onClick={handleSignOut}
-            className="flex items-center justify-center rounded-2xl border border-sweyellow px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
+            className="relative flex items-center justify-center rounded-2xl border border-sweyellow px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
           >
             Sign out
           </button>
@@ -338,12 +382,11 @@ export function SiteHeaderClient({ user }: { user: HeaderUser }) {
         {/* Mobile dropdown */}
         {mobileOpen && !scrolled && (
           <nav
-            className="absolute left-1/2 top-full mt-2 grid w-[min(18rem,calc(100vw-2rem))] -translate-x-1/2 gap-1.5 rounded-3xl border border-sweyellow bg-slate-950/95 p-3 shadow-[0_0_32px_rgba(0,82,147,0.65)] lg:hidden"
-            style={{
-              backdropFilter: "blur(36px) saturate(160%) brightness(70%)",
-              WebkitBackdropFilter: "blur(36px) saturate(160%) brightness(70%)",
-            }}
+            className="absolute left-1/2 top-full mt-2 grid w-[min(18rem,calc(100vw-2rem))] -translate-x-1/2 gap-1.5 overflow-hidden rounded-3xl border border-sweyellow bg-sweblue/20 p-3 shadow-[0_0_32px_rgba(0,82,147,0.65)] ring-1 ring-white/10 lg:hidden"
+            style={dropdownSurfaceStyle}
           >
+            <DropdownGloss />
+
             {isLoggedIn ? (
               <>
                 {authedMobileTopNav.map((item) => (
@@ -357,7 +400,7 @@ export function SiteHeaderClient({ user }: { user: HeaderUser }) {
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className="flex items-center justify-center rounded-2xl border border-sweyellow px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
+                  className="relative flex items-center justify-center rounded-2xl border border-sweyellow px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
                 >
                   Sign out
                 </button>
@@ -377,7 +420,7 @@ export function SiteHeaderClient({ user }: { user: HeaderUser }) {
                 <button
                   type="button"
                   onClick={handleSignIn}
-                  className="flex items-center justify-center rounded-2xl border border-sweyellow px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
+                  className="relative flex items-center justify-center rounded-2xl border border-sweyellow px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
                 >
                   Logga in
                 </button>
