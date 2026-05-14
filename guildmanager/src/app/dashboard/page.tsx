@@ -1,4 +1,4 @@
-import DashboardSection  from "@/components/profile/dashboard-section";
+import ProfileCard from "@/components/profile/profile-card";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <main>
-      <DashboardSection />
+      <ProfileCard />
     </main>
   );
 }

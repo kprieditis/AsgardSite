@@ -49,9 +49,6 @@ export function HomeSections() {
           className="relative z-10 h-auto w-64 object-contain sm:w-72"
         />
 
-        {/* <div className="absolute bottom-5 rounded-full border border-sweyellow bg-slate-950/35 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-sweyellow backdrop-blur-md">
-          Swedish Star Citizen Community
-        </div> */}
       </div>
     </div>
 
