@@ -14,7 +14,7 @@ export default function HomePage() {
     <main>
       <HeroSection />
       <HomeSections />
-      <LoginSection /> 
+      <LoginSection redirectWhenSignedIn={false} />
     </main>
   );
 }

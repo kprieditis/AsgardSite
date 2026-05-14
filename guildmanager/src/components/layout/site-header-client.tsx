@@ -19,11 +19,9 @@ const leftNav = [
 
 const rightNav = [{ label: "Flotta", href: "/fleet" }];
 
-const guestMobileNav = [...leftNav, ...rightNav];
+const mainMobileNav = [...leftNav, ...rightNav];
 
-const authedMobileNav = [
-  ...leftNav,
-  ...rightNav,
+const authedMobileTopNav = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Operations", href: "/operations" },
 ];
@@ -59,7 +57,7 @@ function DesktopNavLink({
       href={href}
       aria-current={isActive ? "page" : undefined}
       className={cn(
-        "relative rounded-full border px-1 py-1 text-[15px] font-semibold uppercase tracking-[0.16em] transition",
+        "relative inline-flex items-center justify-center rounded-full border px-1 py-1 text-center text-[15px] font-semibold uppercase tracking-[0.16em] transition",
         "active:border-sweyellow focus-visible:border-sweyellow focus-visible:outline-none",
         isActive
           ? "border-sweyellow bg-sweblue/50 text-sweyellow"
@@ -69,6 +67,40 @@ function DesktopNavLink({
       {label}
     </Link>
   );
+}
+
+function MobileNavLink({
+  href,
+  label,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  onClick: () => void;
+}) {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      aria-current={isActive ? "page" : undefined}
+      className={cn(
+        "flex items-center justify-center rounded-2xl border px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.16em] transition",
+        "active:border-sweyellow focus-visible:border-sweyellow focus-visible:outline-none",
+        isActive
+          ? "border-sweyellow bg-sweblue/60 text-sweyellow"
+          : "border-transparent text-slate-300 hover:bg-sweblue/35 hover:text-sweyellow"
+      )}
+    >
+      {label}
+    </Link>
+  );
+}
+
+function MobileDivider() {
+  return <div aria-hidden="true" className="my-1 h-px bg-sweyellow/35" />;
 }
 
 function SiteLogo() {
@@ -129,15 +161,15 @@ function AccountMenu({ user }: { user: NonNullable<HeaderUser> }) {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-haspopup="menu"
-        className="rounded-full border border-sweyellow px-2 py-1 text-[15px] font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:border-sweyellow focus-visible:outline-none"
+        className="inline-flex items-center justify-center rounded-full border border-sweyellow px-2 py-1 text-center text-[15px] font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:border-sweyellow focus-visible:outline-none"
       >
-        {accountLabel}
+        <span className="max-w-36 truncate">{accountLabel}</span>
       </button>
 
       {open && (
         <div
           role="menu"
-          className="absolute right-0 top-full z-50 mt-2 grid min-w-44 gap-1.5 rounded-3xl border border-sweyellow bg-slate-950/95 p-3 shadow-[0_0_32px_rgba(0,82,147,0.65)]"
+          className="absolute left-1/2 top-full z-50 mt-2 grid min-w-44 -translate-x-1/2 gap-1.5 rounded-3xl border border-sweyellow bg-slate-950/95 p-3 shadow-[0_0_32px_rgba(0,82,147,0.65)]"
           style={{
             backdropFilter: "blur(36px) saturate(160%) brightness(70%)",
             WebkitBackdropFilter: "blur(36px) saturate(160%) brightness(70%)",
@@ -147,7 +179,7 @@ function AccountMenu({ user }: { user: NonNullable<HeaderUser> }) {
             href="/dashboard"
             role="menuitem"
             onClick={() => setOpen(false)}
-            className="rounded-2xl border border-transparent px-3 py-2 text-xs font-medium uppercase tracking-[0.16em] text-slate-300 transition hover:bg-sweblue/35 hover:text-sweyellow focus-visible:border-sweyellow focus-visible:outline-none"
+            className="flex items-center justify-center rounded-2xl border border-transparent px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.16em] text-slate-300 transition hover:bg-sweblue/35 hover:text-sweyellow focus-visible:border-sweyellow focus-visible:outline-none"
           >
             Dashboard
           </Link>
@@ -156,7 +188,7 @@ function AccountMenu({ user }: { user: NonNullable<HeaderUser> }) {
             href="/operations"
             role="menuitem"
             onClick={() => setOpen(false)}
-            className="rounded-2xl border border-transparent px-3 py-2 text-xs font-medium uppercase tracking-[0.16em] text-slate-300 transition hover:bg-sweblue/35 hover:text-sweyellow focus-visible:border-sweyellow focus-visible:outline-none"
+            className="flex items-center justify-center rounded-2xl border border-transparent px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.16em] text-slate-300 transition hover:bg-sweblue/35 hover:text-sweyellow focus-visible:border-sweyellow focus-visible:outline-none"
           >
             Operations
           </Link>
@@ -165,7 +197,7 @@ function AccountMenu({ user }: { user: NonNullable<HeaderUser> }) {
             type="button"
             role="menuitem"
             onClick={handleSignOut}
-            className="rounded-2xl border border-sweyellow px-3 py-2 text-left text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
+            className="flex items-center justify-center rounded-2xl border border-sweyellow px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
           >
             Sign out
           </button>
@@ -176,13 +208,10 @@ function AccountMenu({ user }: { user: NonNullable<HeaderUser> }) {
 }
 
 export function SiteHeaderClient({ user }: { user: HeaderUser }) {
-  const pathname = usePathname();
-
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const isLoggedIn = Boolean(user);
-  const mobileNav = isLoggedIn ? authedMobileNav : guestMobileNav;
 
   useEffect(() => {
     function handleScroll() {
@@ -261,7 +290,7 @@ export function SiteHeaderClient({ user }: { user: HeaderUser }) {
               <button
                 type="button"
                 onClick={handleSignIn}
-                className="rounded-full border border-sweyellow px-2 py-1 text-[15px] font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 active:border-sweyellow focus-visible:border-sweyellow focus-visible:outline-none"
+                className="inline-flex items-center justify-center rounded-full border border-sweyellow px-2 py-1 text-center text-[15px] font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 active:border-sweyellow focus-visible:border-sweyellow focus-visible:outline-none"
               >
                 Logga in
               </button>
@@ -315,44 +344,54 @@ export function SiteHeaderClient({ user }: { user: HeaderUser }) {
               WebkitBackdropFilter: "blur(36px) saturate(160%) brightness(70%)",
             }}
           >
-            {mobileNav.map((item) => {
-              const isActive = pathname === item.href;
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  aria-current={isActive ? "page" : undefined}
-                  className={cn(
-                    "rounded-2xl border px-3 py-2 text-xs font-medium uppercase tracking-[0.16em] transition",
-                    "active:border-sweyellow focus-visible:border-sweyellow focus-visible:outline-none",
-                    isActive
-                      ? "border-sweyellow bg-sweblue/60 text-sweyellow"
-                      : "border-transparent text-slate-300 hover:bg-sweblue/35 hover:text-sweyellow"
-                  )}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-
             {isLoggedIn ? (
-              <button
-                type="button"
-                onClick={handleSignOut}
-                className="rounded-2xl border border-sweyellow px-3 py-2 text-left text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
-              >
-                Sign out
-              </button>
+              <>
+                {authedMobileTopNav.map((item) => (
+                  <MobileNavLink
+                    key={item.href}
+                    {...item}
+                    onClick={() => setMobileOpen(false)}
+                  />
+                ))}
+
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="flex items-center justify-center rounded-2xl border border-sweyellow px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
+                >
+                  Sign out
+                </button>
+
+                <MobileDivider />
+
+                {mainMobileNav.map((item) => (
+                  <MobileNavLink
+                    key={item.href}
+                    {...item}
+                    onClick={() => setMobileOpen(false)}
+                  />
+                ))}
+              </>
             ) : (
-              <button
-                type="button"
-                onClick={handleSignIn}
-                className="rounded-2xl border border-sweyellow px-3 py-2 text-left text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
-              >
-                Logga in
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={handleSignIn}
+                  className="flex items-center justify-center rounded-2xl border border-sweyellow px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.16em] text-sweyellow transition hover:bg-sweblue/35 focus-visible:outline-none"
+                >
+                  Logga in
+                </button>
+
+                <MobileDivider />
+
+                {mainMobileNav.map((item) => (
+                  <MobileNavLink
+                    key={item.href}
+                    {...item}
+                    onClick={() => setMobileOpen(false)}
+                  />
+                ))}
+              </>
             )}
           </nav>
         )}

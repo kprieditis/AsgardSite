@@ -1,8 +1,8 @@
-import { auth } from "@/auth"
-import { SiteHeaderClient } from "@/components/layout/site-header-client"
+import { auth } from "@/auth";
+import { SiteHeaderClient } from "@/components/layout/site-header-client";
 
 export async function SiteHeader() {
-  const session = await auth()
+  const session = await auth();
 
   return (
     <SiteHeaderClient
@@ -16,5 +16,5 @@ export async function SiteHeader() {
           : null
       }
     />
-  )
+  );
 }
